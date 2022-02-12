@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Надежда Белова](https://up.htmlacademy.ru/react/9/user/1714799).
-* Наставник: `Неизвестно`.
+* Наставник: [Владислав Зубко](https://htmlacademy.ru/profile/whatislove).
 
 ---
 
