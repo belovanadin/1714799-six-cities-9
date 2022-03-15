@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
+import {OfferType} from '../../types/offer';
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
-function Favorites(): JSX.Element {
+
+type FavoritesProps = {
+  offers: OfferType[];
+}
+
+function Favorites({offers}: FavoritesProps): JSX.Element {
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">

@@ -1,12 +1,13 @@
-import PlaceCard from '../place-card/place-card';
 import { Link } from 'react-router-dom';
-
+import {OfferType} from '../../types/offer';
+import PlaceCardList from '../place-card-list/place-card-list';
 
 type MainProps = {
   countOffer: number;
+  offers: OfferType[];
 }
 
-function Main({countOffer}: MainProps): JSX.Element {
+function Main({countOffer, offers}: MainProps): JSX.Element {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -67,11 +68,7 @@ function Main({countOffer}: MainProps): JSX.Element {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
+              <PlaceCardList offers={offers}/>
             </div>
           </section>
           <div className="cities__right-section">
