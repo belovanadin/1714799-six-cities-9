@@ -6,18 +6,22 @@ import SignIn from '../sign-in/sign-in';
 import Main from '../main/main';
 import NotFoundPage from '../not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
+import {OfferType, ReviewType, FavoriteOfferType} from '../../types/offer';
 
  type AppProps = {
    countOffer: number;
+   offers: OfferType[];
+   favoriteOffers: FavoriteOfferType[];
+   reviews: ReviewType[];
  }
 
-function App({countOffer}: AppProps): JSX.Element {
+function App({countOffer, offers, favoriteOffers, reviews}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main countOffer = {countOffer} />}
+          element={<Main countOffer = {countOffer} offers = {offers}/>}
         />
         <Route
           path={AppRoute.SignIn}
@@ -27,15 +31,15 @@ function App({countOffer}: AppProps): JSX.Element {
           path={AppRoute.Favorites}
           element={
             <PrivateRoute
-              authorizationStatus={AutorizationStatus.NoAuth}
+              authorizationStatus={AutorizationStatus.Auth}
             >
-              <Favorites />
+              <Favorites offers={offers}/>
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.Room}
-          element={<Room />}
+          element={<Room offers={offers[0]} reviews={reviews}/>}
         />
         <Route
           path="*"
