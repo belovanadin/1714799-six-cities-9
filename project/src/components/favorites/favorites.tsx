@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import {OfferType} from '../../types/offer';
+import {AppRoute} from '../../const';
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 
@@ -17,7 +18,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
             <li className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
-                  <Link className="locations__item-link" to="/">
+                  <Link className="locations__item-link" to={AppRoute.Main}>
                     <span>Amsterdam</span>
                   </Link>
                 </div>
@@ -28,7 +29,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
                     <span>Premium</span>
                   </div>
                   <div className="favorites__image-wrapper place-card__image-wrapper">
-                    <Link to="/">
+                    <Link to={AppRoute.Main}>
                       <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place image" />
                     </Link>
                   </div>
@@ -52,7 +53,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <Link to="/">Nice, cozy, warm big bed apartment</Link>
+                      <Link to={AppRoute.Main}>Nice, cozy, warm big bed apartment</Link>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
@@ -60,7 +61,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
 
                 <article className="favorites__card place-card">
                   <div className="favorites__image-wrapper place-card__image-wrapper">
-                    <Link to="/">
+                    <Link to={AppRoute.Main}>
                       <img className="place-card__image" src="img/room-small.jpg" width="150" height="110" alt="Place image" />
                     </Link>
                   </div>
@@ -84,7 +85,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <Link to="/">Wood and stone place</Link>
+                      <Link to={AppRoute.Main}>Wood and stone place</Link>
                     </h2>
                     <p className="place-card__type">Private room</p>
                   </div>
@@ -95,7 +96,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
             <li className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
-                  <Link className="locations__item-link" to="/">
+                  <Link className="locations__item-link" to={AppRoute.Main}>
                     <span>Cologne</span>
                   </Link>
                 </div>
@@ -103,7 +104,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
               <div className="favorites__places">
                 <article className="favorites__card place-card">
                   <div className="favorites__image-wrapper place-card__image-wrapper">
-                    <Link to="/">
+                    <Link to={AppRoute.Main}>
                       <img className="place-card__image" src="img/apartment-small-04.jpg" width="150" height="110" alt="Place image"/>
                     </Link>
                   </div>
@@ -127,7 +128,7 @@ function Favorites({offers}: FavoritesProps): JSX.Element {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <Link to="/">White castle</Link>
+                      <Link to={AppRoute.Main}>White castle</Link>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>

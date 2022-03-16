@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import { offers } from './mocks/offers';
-import { favoriteOffers } from './mocks/favoriteOffers';
+import { favoriteOffers } from './mocks/favorite-offers';
 import { reviews } from './mocks/reviews';
 
 const Setting = {
