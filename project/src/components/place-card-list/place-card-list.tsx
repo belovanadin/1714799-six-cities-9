@@ -5,9 +5,10 @@ import {useState} from 'react';
 
 type PlaceCardListProps = {
   offers: OfferType[];
+  onPlaceCardHover: (id:number) => void;
 }
 
-function PlaceCardList({offers}: PlaceCardListProps): JSX.Element {
+function PlaceCardList({offers, onPlaceCardHover}: PlaceCardListProps): JSX.Element {
 
   const [, setActiveOffer]=useState<null | OfferType>(null);
 
@@ -16,9 +17,12 @@ function PlaceCardList({offers}: PlaceCardListProps): JSX.Element {
   };
   return (
     <Fragment>
-      {offers.map((offer) => (
-        <PlaceCard key={offer.id} offers={offer}
+      {offers.map((offer, id) => (
+        <PlaceCard
+          key={offer.id}
+          offers={offer}
           onActiveOfferChange={onActiveOfferChange}
+          onPlaceCardHover={onPlaceCardHover}
         />
       ))}
     </Fragment>

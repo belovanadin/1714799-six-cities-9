@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import {OfferType} from '../../types/offer';
 import PlaceCardList from '../place-card-list/place-card-list';
+import {useState} from 'react';
+import Map from '../map/map';
+import {CITY} from '../../mocks/city';
 
 type MainProps = {
   countOffer: number;
@@ -8,6 +11,13 @@ type MainProps = {
 }
 
 function Main({countOffer, offers}: MainProps): JSX.Element {
+
+  const [selectedPoint, setSelectedPoint] = useState<OfferType | null>(null);
+
+  const onPlaceCardHover = (id: number) => {
+    const selectedId = offers.find((offer) => offer.id === id);
+    setSelectedPoint(selectedId ?? null);
+  };
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -68,11 +78,16 @@ function Main({countOffer, offers}: MainProps): JSX.Element {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              <PlaceCardList offers={offers}/>
+              <PlaceCardList
+                offers={offers}
+                onPlaceCardHover={onPlaceCardHover}
+              />
             </div>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <section className="cities__map map">
+              <Map city={CITY} points={offers} selectedPoint={selectedPoint} />
+            </section>
           </div>
         </div>
       </div>

@@ -12,7 +12,8 @@ function PlaceCard({offers, onActiveOfferChange}: PlaceCardProps): JSX.Element {
   return (
     <article
       className="cities__place-card place-card"
-      onMouseOver = {() => onActiveOfferChange(offers)}
+      onMouseOver = {() => {
+        onActiveOfferChange(offers);}}
       onMouseOut = {() => onActiveOfferChange(null)}
     >
       {isPremium && (
