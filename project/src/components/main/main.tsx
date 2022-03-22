@@ -12,11 +12,11 @@ type MainProps = {
 
 function Main({countOffer, offers}: MainProps): JSX.Element {
 
-  const [selectedPoint, setSelectedPoint] = useState<OfferType | undefined>(undefined);
+  const [selectedPoint, setSelectedPoint] = useState<OfferType | null>(null);
 
   const onPlaceCardHover = (id: number) => {
     const selectedId = offers.find((offer) => offer.id === id);
-    setSelectedPoint(selectedId);
+    setSelectedPoint(selectedId ?? null);
   };
   return (
     <main className="page__main page__main--index">
@@ -86,7 +86,7 @@ function Main({countOffer, offers}: MainProps): JSX.Element {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map city={CITY} points={offers} selectedPoint={selectedPoint}/>
+              <Map city={CITY} points={offers} selectedPoint={selectedPoint} />
             </section>
           </div>
         </div>

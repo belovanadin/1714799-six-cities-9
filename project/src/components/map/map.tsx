@@ -9,7 +9,7 @@ import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 type MapProps = {
   points: OfferType[];
   city: City;
-  selectedPoint: OfferType | undefined;
+  selectedPoint: OfferType | null;
 }
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -36,7 +36,7 @@ function Map({points, city, selectedPoint}: MapProps) {
         });
         marker
           .setIcon(
-            selectedPoint !== undefined && point.title === selectedPoint.title
+            selectedPoint !== null && point.title === selectedPoint.title
               ? currentCustomIcon
               : defaultCustomIcon,
           )
@@ -46,9 +46,7 @@ function Map({points, city, selectedPoint}: MapProps) {
   }, [map, points, selectedPoint]);
 
   return(
-    <section className="cities__map map" ref={mapRef}>
-
-    </section>
+    <section className="cities__map map" ref={mapRef} />
   );
 }
 
