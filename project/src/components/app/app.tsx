@@ -1,12 +1,14 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute, AutorizationStatus } from '../../const';
-import Favorites from '../favorites/favorites';
-import Room from '../room/room';
-import SignIn from '../sign-in/sign-in';
+import Favorites from '../favorites-screen/favorites-screen';
+import Room from '../../pages/room-screen';
+import SignIn from '../../pages/sign-in';
 import Main from '../main/main';
-import NotFoundPage from '../not-found-page/not-found-page';
+import NotFoundPage from '../../pages/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import {OfferType, ReviewType, FavoriteOfferType} from '../../types/offer';
+import { OfferType } from '../../types/offer';
+import { FavoriteOfferType } from '../../types/favorite-offer';
+import { ReviewType } from '../../types/review';
 
  type AppProps = {
    countOffer: number;
