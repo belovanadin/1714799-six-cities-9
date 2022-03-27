@@ -1,4 +1,5 @@
-import { OfferType, City } from '../../types/offer';
+import { OfferType} from '../../types/offer';
+import { City } from '../../types/city';
 import React, {useRef} from 'react';
 import leaflet, { Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
