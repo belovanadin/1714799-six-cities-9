@@ -1,8 +1,10 @@
-import { City } from '../types/offer';
+import { City } from '../types/city';
 
 export const CITY: City = {
-  title: 'Амстердам',
-  lat: 52.3809553943508,
-  lng: 4.939309666406198,
-  zoom: 10,
+  name: 'Амстердам',
+  location: {
+    latitude: 52.3809553943508,
+    longitude: 4.939309666406198,
+    zoom: 10,
+  },
 };
