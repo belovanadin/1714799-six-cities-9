@@ -20,7 +20,7 @@ export const ANCHOR_MARKER = 20;
 export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
 export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
 
-export const CitiesList = [
+export const citiesList = [
   'Paris',
   'Cologne',
   'Brussels',
@@ -28,3 +28,11 @@ export const CitiesList = [
   'Hamburg',
   'Dusseldorf',
 ];
+
+export const defaultCity = 'Paris';
+
+export enum MainCardClasses {
+  ListClass = 'cities__places-list tabs__content',
+  CardClass = 'cities__place-card',
+  ImageWrapper = 'cities__image-wrapper',
+}

@@ -6,24 +6,23 @@ import SignIn from '../../pages/sign-in';
 import Main from '../main/main';
 import NotFoundPage from '../../pages/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import { OfferType } from '../../types/offer';
+import { useAppSelector } from '../../hooks';
 import { FavoriteOfferType } from '../../types/favorite-offer';
 import { ReviewType } from '../../types/review';
 
  type AppProps = {
-   countOffer: number;
-   offers: OfferType[];
    favoriteOffers: FavoriteOfferType[];
    reviews: ReviewType[];
  }
 
-function App({countOffer, offers, favoriteOffers, reviews}: AppProps): JSX.Element {
+function App({favoriteOffers, reviews}: AppProps): JSX.Element {
+  const offers = useAppSelector ((state) => state.offersList);
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main countOffer = {countOffer} offers = {offers}/>}
+          element={<Main offers = {offers}/>}
         />
         <Route
           path={AppRoute.SignIn}
