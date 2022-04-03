@@ -1,18 +1,17 @@
 import { OfferType } from '../../types/offer';
-import { ReviewType } from '../../types/review';
 import ReviewList from '../review-list/review-list';
 import ReviewForm from '../review-form/review-form';
 import PropertyGallery from '../property-gallery/property-gallery';
 import Map from '../map/map';
+import { useAppSelector } from '../../hooks';
 
 type PropertyCardProps = {
   offers: OfferType[];
-  reviews: ReviewType[];
   selectedPoint: OfferType | null;
 };
 
-function CardProperty({offers, reviews, selectedPoint}: PropertyCardProps):JSX.Element {
-
+function CardProperty({offers, selectedPoint}: PropertyCardProps):JSX.Element {
+  const {reviews} = useAppSelector((state) => state);
   const [countOffer] = offers;
 
   const { title, isFavorite, isPremium, rating, type, bedrooms, maxAdults, price, goods, description} = countOffer;
@@ -106,7 +105,7 @@ function CardProperty({offers, reviews, selectedPoint}: PropertyCardProps):JSX.E
           <section className="property__reviews reviews">
             <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
 
-            <ReviewList reviews={reviews} />
+            <ReviewList reviews={reviews}/>
             <ReviewForm />
 
           </section>

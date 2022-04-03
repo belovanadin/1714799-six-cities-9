@@ -4,15 +4,11 @@ import CitiesList from '../cities-list/cities-list';
 import {useState} from 'react';
 import Map from '../map/map';
 import {CITY} from '../../mocks/city';
-import { citiesList } from '../../const';
 import {useAppSelector} from '../../hooks/';
 import {getCurrentOffers} from '../../utils';
+import { offers } from '../../mocks/offers';
 
-type MainProps = {
-  offers: OfferType[];
-}
-
-function Main({offers}: MainProps): JSX.Element {
+function Main(): JSX.Element {
 
   const [selectedPoint, setSelectedPoint] = useState<OfferType | null>(null);
 
@@ -28,10 +24,7 @@ function Main({offers}: MainProps): JSX.Element {
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <CitiesList
-            citiesList={citiesList}
-            currentCity={currentCity}
-          />
+          <CitiesList/>
         </section>
       </div>
       <div className="cities">

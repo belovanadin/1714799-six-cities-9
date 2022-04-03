@@ -1,8 +1,11 @@
 import {createAction} from '@reduxjs/toolkit';
 import {OfferType} from '../types/offer';
+import { City } from '../types/city';
+import { ReviewType } from '../types/review';
 
-const changeCityAction = createAction<string>('main/changeCity');
+export const changeCityAction = createAction<City>('main/changeCity');
 
-const setOffersListAction = createAction<OfferType[]>('main/setOffersList');
+export const setOffersListAction = createAction<OfferType[]>('main/setOffersList');
 
-export {changeCityAction, setOffersListAction};
+export const setNewReview = createAction<ReviewType[]>('main/review');
+
