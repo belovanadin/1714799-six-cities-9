@@ -1,27 +1,24 @@
 import {OfferType } from '../../types/offer';
-import { ReviewType} from '../../types/review';
 import Header from '../header/header';
 import PropertyCard from '../property-card/property-card';
 import PlaceCardList from '../place-card-list/place-card-list';
 import {useState} from 'react';
+import { useAppSelector } from '../../hooks';
 
-type PlaceCardScreenProps = {
-  offers: OfferType[];
-  reviews: ReviewType[];
-}
 
-function PlaceCardScreen({offers, reviews}:PlaceCardScreenProps): JSX.Element {
+function PlaceCardScreen(): JSX.Element {
 
   const [selectedPoint, setSelectedPoint] = useState<OfferType | null>(null);
 
   const onPlaceCardHover = (offer: OfferType | null) => {
     setSelectedPoint(offer);
   };
+  const {offers, filteredOffers} = useAppSelector((state) => state);
 
   return (
     <div className="page">
       <Header />
-      <PropertyCard offers={offers} reviews={reviews} selectedPoint={selectedPoint}/>
+      <PropertyCard offers={filteredOffers} selectedPoint={selectedPoint}/>
       <main className="page__main page__main--property">
         <div className="container">
           <section className="near-places places">

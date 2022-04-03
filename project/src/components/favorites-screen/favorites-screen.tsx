@@ -1,13 +1,11 @@
-import { OfferType } from '../../types/offer';
 import FavoriteList from '../favorites-list/favorites-list';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesProps = {
-  offers: OfferType[];
-}
 
-function FavoritesScreen({offers}: FavoritesProps): JSX.Element {
+function FavoritesScreen(): JSX.Element {
+  const {filteredOffers} = useAppSelector((state) => state);
   return (
     <>
       <Header/>
@@ -15,7 +13,7 @@ function FavoritesScreen({offers}: FavoritesProps): JSX.Element {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            <FavoriteList favoriteOffers={offers} />
+            <FavoriteList favoriteOffers={filteredOffers} />
           </section>
         </div>
       </main>

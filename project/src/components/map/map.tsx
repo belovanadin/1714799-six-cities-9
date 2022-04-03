@@ -1,6 +1,6 @@
 import { OfferType} from '../../types/offer';
 import { City } from '../../types/city';
-import React, {useRef} from 'react';
+import React, { useRef} from 'react';
 import leaflet, { Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
@@ -24,7 +24,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [ANCHOR_MARKER, HEIGHT_MARKER],
 });
 
-function Map({points, city, selectedPoint}: MapProps) {
+function Map({ points, city, selectedPoint}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
