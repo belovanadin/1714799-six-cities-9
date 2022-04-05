@@ -9,3 +9,4 @@ export const setOffersListAction = createAction<OfferType[]>('main/setOffersList
 
 export const setNewReview = createAction<ReviewType[]>('main/review');
 
+export const setSortPlaces = createAction<string>('main/setSortType');

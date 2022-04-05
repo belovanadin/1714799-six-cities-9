@@ -1,7 +1,7 @@
 import {offers} from '../mocks/offers';
-import {defaultCity} from '../const';
+import {defaultCity, SortType} from '../const';
 import {createReducer} from '@reduxjs/toolkit';
-import {changeCityAction, setOffersListAction, setNewReview} from './action';
+import {changeCityAction, setOffersListAction, setNewReview, setSortPlaces} from './action';
 import { reviews } from '../mocks/reviews';
 import { filterCity } from '../utils';
 
@@ -11,6 +11,7 @@ const initialState = {
   filteredOffers: filterCity(offers, defaultCity),
   offers: offers,
   reviews: reviews,
+  sortType: SortType.Popular,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -23,6 +24,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setNewReview, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(setSortPlaces, (state, action) => {
+      state.sortType = action.payload;
     });
 });
 

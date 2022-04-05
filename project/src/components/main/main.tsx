@@ -5,16 +5,16 @@ import {useState} from 'react';
 import Map from '../map/map';
 import {CITY} from '../../mocks/city';
 import {useAppSelector} from '../../hooks/';
-import {getCurrentOffers} from '../../utils';
 import { offers } from '../../mocks/offers';
+import PlacesSort from '../places-sort/places-sort';
+import { sortOffers } from '../../utils';
 
 function Main(): JSX.Element {
+  const {filteredOffers, currentCity, sortType} = useAppSelector((state) => state);
+  const sortedOffers = sortOffers(filteredOffers, sortType);
 
+  const placesCount: number = filteredOffers.length;
   const [selectedPoint, setSelectedPoint] = useState<OfferType | null>(null);
-
-  const currentCity = useAppSelector((state) => state.city);
-  const countOffers = getCurrentOffers(currentCity, offers);
-  const placesCount = countOffers.length;
 
   const onPlaceCardHover = (offer: OfferType | null) => {
     setSelectedPoint(offer);
@@ -32,31 +32,17 @@ function Main(): JSX.Element {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{placesCount} places to stay in {currentCity}</b>
-            <form className="places__sorting" action="#" method="get">
-              <span className="places__sorting-caption">Sort by</span>
-              <span className="places__sorting-type" tabIndex = {0}>
-              Popular
-                <svg className="places__sorting-arrow" width="7" height="4">
-                  <use xlinkHref="#icon-arrow-select"></use>
-                </svg>
-              </span>
-              <ul className="places__options places__options--custom places__options--opened">
-                <li className="places__option places__option--active" tabIndex = {0}>Popular</li>
-                <li className="places__option" tabIndex = {0}>Price: low to high</li>
-                <li className="places__option" tabIndex = {0}>Price: high to low</li>
-                <li className="places__option" tabIndex = {0}>Top rated first</li>
-              </ul>
-            </form>
+            <PlacesSort sortType={sortType} />
             <div className="cities__places-list places__list tabs__content">
               <PlaceCardList
-                offers={countOffers}
+                offers={sortedOffers}
                 onPlaceCardHover={onPlaceCardHover}
               />
             </div>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map city={CITY} points={offers} selectedPoint={selectedPoint} />
+              <Map city={CITY} points={offers} selectedPoint={selectedPoint} height={682}/>
             </section>
           </div>
         </div>

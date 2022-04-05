@@ -11,6 +11,7 @@ type MapProps = {
   points: OfferType[];
   city: City;
   selectedPoint: OfferType | null;
+  height: number;
 }
 const defaultCustomIcon = leaflet.icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -24,7 +25,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [ANCHOR_MARKER, HEIGHT_MARKER],
 });
 
-function Map({ points, city, selectedPoint}: MapProps) {
+function Map({ points, city, selectedPoint, height}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
