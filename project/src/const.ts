@@ -81,3 +81,10 @@ export enum MainCardClasses {
 
 export const MAIN_MAP_HEIGHT = {height: '780px'};
 export const PROPERTY_MAP_HEIGHT = {height: '579px'};
+
+export const SortType = {
+  Popular: 'Popular',
+  PriceUp: 'Price: low to high',
+  PriceDown: 'Price: high to low',
+  Rating: 'Top rated first',
+};
