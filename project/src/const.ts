@@ -88,3 +88,11 @@ export const SortType = {
   PriceDown: 'Price: high to low',
   Rating: 'Top rated first',
 };
+
+export enum APIRoute {
+  Offers = '/hotels',
+  Favorite = '/favorite',
+  Reviews = '/comments',
+  Login = '/login',
+  Logout = '/logout',
+}
