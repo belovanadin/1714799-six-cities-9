@@ -6,8 +6,20 @@ import Main from '../main/main';
 import NotFoundPage from '../../pages/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import PlaceCardScreen from '../place-card-screen/place-card-screen';
+import Spinner from '../spinner-component/spinner-component';
+import { useAppSelector } from '../../hooks';
+
+const isCheckedAuth = (authorizationStatus: AutorizationStatus): boolean =>
+  authorizationStatus === AutorizationStatus.Unknown;
 
 function App(): JSX.Element {
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
+
+  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+    return (
+      <Spinner />
+    );
+  }
 
   return (
     <BrowserRouter>
