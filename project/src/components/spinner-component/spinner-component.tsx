@@ -2,7 +2,7 @@ import styles from './spinner.module.css';
 
 function Spinner(): JSX.Element {
   return (
-    <div className={styles.body}>
+    <div className={styles.container}>
       <div className={styles.spinner}>
         <div className={[styles.spinnerCircle, styles.spinnerCircleOuter].join(' ')}>
         </div>

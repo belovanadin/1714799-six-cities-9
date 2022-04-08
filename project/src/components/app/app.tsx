@@ -1,5 +1,7 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AutorizationStatus } from '../../const';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 import Favorites from '../favorites-screen/favorites-screen';
 import SignIn from '../../pages/sign-in';
 import Main from '../main/main';
@@ -10,7 +12,7 @@ import Spinner from '../spinner-component/spinner-component';
 import { useAppSelector } from '../../hooks';
 
 const isCheckedAuth = (authorizationStatus: AutorizationStatus): boolean =>
-  authorizationStatus === AutorizationStatus.Unknown;
+  authorizationStatus === AutorizationStatus.Auth;
 
 function App(): JSX.Element {
   const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
@@ -22,7 +24,7 @@ function App(): JSX.Element {
   }
 
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
@@ -51,7 +53,7 @@ function App(): JSX.Element {
           element={<NotFoundPage />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 
