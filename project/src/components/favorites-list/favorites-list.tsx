@@ -13,7 +13,7 @@ function FavoriteList ({favoriteOffers}:FavoriteListProps): JSX.Element {
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <Link className="locations__item-link" to={AppRoute.Main}>
-            <span>{favoriteOffers[1].city.name}</span>
+            <span>{favoriteOffers[0]}</span>
           </Link>
         </div>
       </div>

@@ -1,11 +1,14 @@
-import { OfferType } from '../src/types/offer';
+import { OfferType } from './types/offer';
 import { City } from './types/city';
 import { SortType } from './const';
+import { ReviewType } from './types/review';
+import { MAX_REVIEWS_COUNT } from './const';
 
-const PERC_STAR = 20;
+const PERCENT = 100;
+const MAX_RATING = 5;
 
 export default function getPercRating(rating: number) {
-  return Math.round(rating)*PERC_STAR;
+  return Math.round(rating / MAX_RATING * PERCENT);
 }
 
 const getCurrentOffers = (currentCity: string, offersList: OfferType[]) => offersList.filter(({city}) => city.name === currentCity);
@@ -29,4 +32,19 @@ export const sortOffers = (offers: OfferType[], sortType: string) => {
     default:
       return sortedOffers;
   }
+};
+
+export const lengthOfReviews = (array: ReviewType[]) => {
+  if (array.length > 10) {
+    return array.slice(0, MAX_REVIEWS_COUNT);
+  }
+  return array;
+};
+
+export const sortReviewsDate = (array: ReviewType[]) => {
+  if (array.length < 2) {
+    return array;
+  }
+  const newArray = array.slice();
+  return newArray.sort((b, a) => Date.parse(a.date) - Date.parse(b.date));
 };

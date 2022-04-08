@@ -3,7 +3,8 @@ import { useAppSelector } from '../../hooks';
 function ErrorMessage(): JSX.Element | null {
   const{error} = useAppSelector((state) => state);
 
-  if(error) {
+  if(!error) {
+    return null;
     return (
       <div
         style={{

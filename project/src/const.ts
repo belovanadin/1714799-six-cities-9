@@ -1,3 +1,21 @@
+export const WIDTH_MARKER = 40;
+export const HEIGHT_MARKER = 40;
+export const ANCHOR_MARKER = 20;
+
+export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
+export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
+
+export const TIMEOUT_SHOW_ERROR = 2000;
+export const RATING_VALUES = [5, 4, 3, 2, 1];
+
+export enum RatingName {
+  'Terribly',
+  'Badly',
+  'Not bad',
+  'Good',
+  'Perfect',
+}
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -12,13 +30,6 @@ export enum AutorizationStatus {
   NoAuth = 'NOAUTH',
   Unknown = 'UNKNOWN',
 }
-
-export const WIDTH_MARKER = 40;
-export const HEIGHT_MARKER = 40;
-export const ANCHOR_MARKER = 20;
-
-export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
-export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
 
 export const citiesList = [
   {
@@ -95,11 +106,10 @@ export enum APIRoute {
   Reviews = '/comments',
   Login = '/login',
   Logout = '/logout',
+  Nearby = '/nearby',
 }
 
-export const TIMEOUT_SHOW_ERROR = 2000;
-
-export enum HTTP_CODE {
+export enum HttpCode {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
@@ -108,4 +118,27 @@ export enum HTTP_CODE {
 export enum LogoTypes {
   Header = 'header',
   Footer = 'footer',
+}
+
+export const MONTHS_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'Octover',
+  'November',
+  'December',
+];
+export const PERCENT_PER_STAR = 20;
+export const MAX_REVIEWS_COUNT = 10;
+
+export enum CardTypes {
+  Main = 'cities',
+  Favorites = 'favorites',
+  Nearby = 'near-places',
 }
