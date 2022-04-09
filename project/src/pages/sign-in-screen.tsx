@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch } from '../hooks';
 import { loginAction } from '../store/api-action';
+import { AppRoute } from '../const';
 
 
 function SignInScreen(): JSX.Element {
@@ -75,7 +76,7 @@ function SignInScreen(): JSX.Element {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link to='/' className="locations__item-link" >
+            <Link to={AppRoute.Main} className="locations__item-link" >
               <span>Amsterdam</span>
             </Link>
           </div>

@@ -1,57 +1,57 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
+import {useAppDispatch} from '../../hooks';
+import {fetchSendReview} from '../../store/api-action';
+import Rating from '../rating/rating';
+import {OfferType} from '../../types/offer';
+import { ReviewWithIdType } from '../../types/review';
 
-function ReviewForm():JSX.Element {
+type ReviewFormProps = {
+  currentOffer: OfferType;
+  currentId: number;
+}
 
-  const [formData, setFormData] = useState('');
+function ReviewForm({currentId, currentOffer}:ReviewFormProps):JSX.Element {
 
-  const onClickSubmit = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData(evt.target.value);
+  const dispatch = useAppDispatch();
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const isDisapled = rating === 0 || comment.length < 50;
+
+  const ratingChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
+    const { value } = evt.target;
+    setRating(Number(value));
+  };
+
+  const commentChangeHandler = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    evt.preventDefault();
+    const { value } = evt.target;
+    setComment(value);
+  };
+
+  const onSubmit = (reviewData: ReviewWithIdType) => {
+    dispatch(fetchSendReview(reviewData));
+    setRating(0);
+    setComment('');
+  };
+
+  const formSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    onSubmit({
+      comment: comment,
+      rating: rating,
+      id: Number(currentId),
+    });
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={formSubmitHandler}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
-      <div className="reviews__rating-form form__rating">
-        <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"></input>
-        <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio"></input>
-        <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio"></input>
-        <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio"></input>
-        <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-
-        <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio"></input>
-        <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-          <svg className="form__star-image" width="37" height="33">
-            <use xlinkHref="#icon-star"></use>
-          </svg>
-        </label>
-      </div>
+      <Rating getRating={ratingChangeHandler} rating={rating}/>
       <textarea className="reviews__textarea form__textarea"
-        value = {formData}
-        onChange={onClickSubmit}
+        value = {comment}
+        onChange={commentChangeHandler}
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
@@ -66,7 +66,7 @@ function ReviewForm():JSX.Element {
             and describe your stay with at least
           <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled >Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isDisapled} >Submit</button>
       </div>
     </form>
   );

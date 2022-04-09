@@ -17,8 +17,12 @@ export const loadOffers = createAction<OfferType[]>('data/loadOffers');
 
 export const requireAutorization = createAction<AutorizationStatus>('user/requireAutorization');
 
-export const loadCurrentOffer = createAction<OfferType>('data/loadCurrentOffer');
+export const loadCurrentOffer = createAction<OfferType | null>('data/loadCurrentOffer');
 
 export const setError = createAction<string>('/setError');
 
 export const redirectToRoute = createAction<AppRoute>('/redirectToRoute');
+
+export const loadReviews = createAction<ReviewType[]>('data/loadReviews');
+
+export const loadFavoriteOffers = createAction<OfferType[]>('data/loadFavoriteOffers');
