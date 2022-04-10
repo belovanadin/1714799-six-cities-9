@@ -5,14 +5,14 @@ import { OfferType } from '../types/offer';
 import { ReviewType } from '../types/review';
 import { redirectToRoute } from './action';
 import { requireAuthorization } from './user-process/user-process';
-import {loadOffers, setNearbyOffers, loadReviews, loadCurrentOffer, setNewReview} from './offers-data/offers-data';
+import {loadOffers, setNearbyOffers, loadReviews, loadCurrentOffer, setNewReview, fetchFavorites} from './offers-data/offers-data';
 import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
 import { UserData } from '../types/user-data';
 import { errorHandle } from '../services/error-handles';
 import { ReviewTypeData } from '../types/review';
-import { fetchFavorites } from '../components/favorite-process/favorite-process';
+//import { fetchFavorites } from '../components/favorite-process/favorite-process';
 import { FavoriteFlagType } from '../types/favorite-offer';
 
 export const fetchOfferAction = createAsyncThunk(

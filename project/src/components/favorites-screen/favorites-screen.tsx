@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 
 
 function FavoritesScreen(): JSX.Element {
-  const {favorites} = useAppSelector(({FAVORITES}) => FAVORITES);
+  const {favorites} = useAppSelector(({DATA}) => DATA);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

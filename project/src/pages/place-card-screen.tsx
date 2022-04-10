@@ -9,8 +9,6 @@ import {useParams} from 'react-router-dom';
 import {loadCurrentOfferAction, fetchReviewsAction, fetchNearbyOffersAction} from '../store/api-action';
 import NotFoundPage from './not-found-page';
 import Spinner from '../components/spinner-component/spinner-component';
-// import { redirectToRoute } from '../../store/action';
-// import { AppRoute, AutorizationStatus } from '../../const';
 
 function PlaceCardScreen(): JSX.Element {
 
@@ -20,15 +18,14 @@ function PlaceCardScreen(): JSX.Element {
   const onPlaceCardHover = (offer: OfferType | null) => {
     setSelectedPoint(offer);
   };
-  const { offers, currentOffer, reviews, isCurrentOfferLoaded } = useAppSelector(({DATA}) => DATA);
-  //const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const { offers, currentOffer, reviews, isCurrentOfferLoaded, favorites } = useAppSelector(({DATA}) => DATA);
   const {id} = useParams<{id: string}>();
 
   useEffect(() => {
     store.dispatch(loadCurrentOfferAction(Number(id)));
     store.dispatch(fetchReviewsAction(Number(id)));
     store.dispatch(fetchNearbyOffersAction(Number(id)));
-  }, [id, dispatch]);
+  }, [id, dispatch, favorites]);
 
   if (isCurrentOfferLoaded === false) {
     return (

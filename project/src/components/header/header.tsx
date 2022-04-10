@@ -13,7 +13,7 @@ function Header({isThisPageLogin}:HeaderProps): JSX.Element {
           <div className="header__left">
             <Logo />
           </div>
-          {!isThisPageLogin ? <HeaderNav /> : ''}
+          {!isThisPageLogin && <HeaderNav /> }
         </div>
       </div>
     </header>

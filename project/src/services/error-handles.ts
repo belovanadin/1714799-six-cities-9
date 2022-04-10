@@ -1,7 +1,9 @@
 import request from 'axios';
 import { ErrorType } from '../types/error';
-import { HttpCode } from '../const';
+import { HttpCode, AppRoute } from '../const';
 import { toast } from 'react-toastify';
+import { store } from '../store';
+import { redirectToRoute } from '../store/action';
 
 export const errorHandle = (error: ErrorType): void => {
   if(!request.isAxiosError(error)) {
@@ -20,6 +22,7 @@ export const errorHandle = (error: ErrorType): void => {
         break;
       case HttpCode.NOT_FOUND:
         toast.info(response.data.error);
+        store.dispatch(redirectToRoute(AppRoute.NotFound));
         break;
     }
   }
