@@ -114,11 +114,6 @@ export enum HttpCode {
   NOT_FOUND = 404,
 }
 
-export enum LogoTypes {
-  Header = 'header',
-  Footer = 'footer',
-}
-
 export const MONTHS_NAMES = [
   'January',
   'February',

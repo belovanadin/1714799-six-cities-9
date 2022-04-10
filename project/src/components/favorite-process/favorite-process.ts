@@ -18,10 +18,7 @@ export const favoritesProcess = createSlice({
       state.favorites = action.payload;
       state.favoritesLoaded = true;
     },
-    setFavoriteLoading: (state) => {
-      state.favoritesLoaded = false;
-    },
   },
 });
 
-export const {fetchFavorites, setFavoriteLoading} = favoritesProcess.actions;
+export const {fetchFavorites} = favoritesProcess.actions;

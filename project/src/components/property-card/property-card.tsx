@@ -5,8 +5,12 @@ import ReviewForm from '../review-form/review-form';
 import PropertyGallery from '../property-gallery/property-gallery';
 import Map from '../map/map';
 import getPercRating from '../../utils';
-import { AuthorizationStatus } from '../../const';
-import { useAppSelector } from '../../hooks';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import {useAppSelector, useAppDispatch} from '../../hooks';
+import BookmarkButton from '../bookmark-button/bookmark-button';
+import {useState} from 'react';
+import { toggleFavoriteAction } from '../../store/api-action';
+import { redirectToRoute } from '../../store/action';
 
 type PropertyCardProps = {
   offers: OfferType[];
@@ -17,6 +21,21 @@ type PropertyCardProps = {
 
 function CardProperty({offers, selectedPoint, currentOffer, reviews }: PropertyCardProps):JSX.Element {
   const authorizationStatus = useAppSelector(({ USER }) => USER.authorizationStatus);
+  const [isOfferFavorite, setToggleFavorite] = useState(currentOffer.isFavorite);
+  const dispatch = useAppDispatch();
+  const postFavoriteFlag = currentOffer.isFavorite ? 0 : 1;
+
+  const handleFavoriteClick = () => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      dispatch(redirectToRoute(AppRoute.SignIn));
+    }
+    dispatch(toggleFavoriteAction({
+      id: currentOffer.id,
+      flag: postFavoriteFlag,
+    }));
+
+    setToggleFavorite(!isOfferFavorite);
+  };
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
   const { id: currentId } = currentOffer;
 
@@ -36,16 +55,12 @@ function CardProperty({offers, selectedPoint, currentOffer, reviews }: PropertyC
             <h1 className="property__name">
               {currentOffer.title}
             </h1>
-            <button className={
-              `property__bookmark-button button
-              ${currentOffer.isFavorite ? 'property__bookmark-button--active' : ''}`
-            } type="button"
-            >
-              <svg className="property__bookmark-icon" width="31" height="33">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <BookmarkButton
+              isFavorite={currentOffer.isFavorite}
+              handleBookmarkButtonClick={handleFavoriteClick}
+              isSmall={false}
+              prefix={'property'}
+            />
           </div>
           <div className="property__rating rating">
             <div className="property__stars rating__stars">
@@ -108,7 +123,7 @@ function CardProperty({offers, selectedPoint, currentOffer, reviews }: PropertyC
             <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
 
             <ReviewList reviews={reviews} />
-            {isAuth && <ReviewForm currentOffer={currentOffer} currentId={currentId} />}
+            {isAuth ? <ReviewForm currentOffer={currentOffer} currentId={currentId} />: ''}
 
           </section>
         </div>

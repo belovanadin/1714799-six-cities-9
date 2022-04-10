@@ -2,12 +2,24 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { FavoriteOfferType } from '../../types/favorite-offer';
 import getPercRating from '../../utils';
+import BookmarkButton from '../bookmark-button/bookmark-button';
+import {fetchOfferAction, toggleFavoriteAction} from '../../store/api-action';
+import {useAppDispatch} from '../../hooks';
 
 type FavoritePlaceCardProps = {
   favoriteOffers: FavoriteOfferType,
 }
 
 function FavoritePlaceCard({favoriteOffers}:FavoritePlaceCardProps): JSX.Element {
+
+  const dispatch = useAppDispatch();
+  const handleFavoriteClick = () => {
+    dispatch(toggleFavoriteAction({
+      id: favoriteOffers.id,
+      flag: 0,
+    }));
+    dispatch(fetchOfferAction);
+  };
 
   return (
     <article className="favorites__card place-card">
@@ -27,12 +39,12 @@ function FavoritePlaceCard({favoriteOffers}:FavoritePlaceCardProps): JSX.Element
             <b className="place-card__price-value">&euro;{favoriteOffers.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <BookmarkButton
+            isFavorite={favoriteOffers.isFavorite}
+            handleBookmarkButtonClick={handleFavoriteClick}
+            isSmall
+            prefix={'place-card'}
+          />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
