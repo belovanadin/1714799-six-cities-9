@@ -11,7 +11,6 @@ type MapProps = {
   selectedPoint: OfferType | null;
   height: number;
   currentOffers: OfferType[];
-  className: string;
 }
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
@@ -27,7 +26,7 @@ const currentCustomIcon = new Icon({
 
 const markers:Marker[]= [];
 
-function Map({ currentOffers, city, selectedPoint, className, height}: MapProps) {
+function Map({ currentOffers, city, selectedPoint, height}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 

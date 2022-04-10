@@ -1,30 +1,30 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import {OfferType} from '../../types/offer';
+import { FavoriteOfferType } from '../../types/favorite-offer';
+import getPercRating from '../../utils';
 
 type FavoritePlaceCardProps = {
-  favoriteOffers: OfferType,
+  favoriteOffers: FavoriteOfferType,
 }
 
 function FavoritePlaceCard({favoriteOffers}:FavoritePlaceCardProps): JSX.Element {
-  const {isPremium, previewImage, id, price, title, type} = favoriteOffers;
 
   return (
     <article className="favorites__card place-card">
-      {isPremium && (
+      {favoriteOffers && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <Link to={`${AppRoute.Offer}/${id}`}>
-          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place card" />
+        <Link to={`${AppRoute.Offer}/${favoriteOffers.id}`}>
+          <img className="place-card__image" src={favoriteOffers.previewImage} width="150" height="110" alt="Place card" />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{price}</b>
+            <b className="place-card__price-value">&euro;{favoriteOffers.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
@@ -36,14 +36,14 @@ function FavoritePlaceCard({favoriteOffers}:FavoritePlaceCardProps): JSX.Element
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '100%'}}></span>
+            <span style={{width: `${getPercRating(favoriteOffers.rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
+          <Link to={`${AppRoute.Offer}/${favoriteOffers.id}`}>{favoriteOffers.title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{favoriteOffers.type}</p>
       </div>
     </article>
 

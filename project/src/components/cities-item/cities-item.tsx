@@ -1,7 +1,7 @@
 import { City } from '../../types/city';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeCityAction } from '../../store/action';
+import { setCity } from '../../store/offers-process/offers-process';
 
 type CitiesItemProps = {
   activeCity: City;
@@ -18,7 +18,7 @@ function CitiesItem({city, activeCity}:CitiesItemProps): JSX.Element {
   return (
     <li className="locations__item">
       <Link className={`locations__item-link tabs__item ${isActive}`} to='/'
-        onClick={() => dispatch(changeCityAction(city))}
+        onClick={() => dispatch(setCity(city))}
       >
         <span>{name}</span>
       </Link>

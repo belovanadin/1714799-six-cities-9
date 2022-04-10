@@ -5,25 +5,30 @@ import {useState} from 'react';
 import Map from '../map/map';
 import {useAppSelector} from '../../hooks/';
 import PlacesSort from '../places-sort/places-sort';
-import { sortOffers } from '../../utils';
+import { sortOffers, filterCity } from '../../utils';
 import { CardTypes } from '../../const';
 import Spinner from '../spinner-component/spinner-component';
 import Header from '../header/header';
 
 function Main(): JSX.Element {
-  const {filteredOffers, currentCity, sortType, isDataLoaded} = useAppSelector((state) => state);
-  const sortedOffers = sortOffers(filteredOffers, sortType);
 
-  const placesCount: number = filteredOffers.length;
   const [selectedPoint, setSelectedPoint] = useState<OfferType | null>(null);
-
   const onPlaceCardHover = (offer: OfferType | null) => {
     setSelectedPoint(offer);
   };
+
+  const offers = useAppSelector(({DATA}) => DATA.offers);
+  const currentCity = useAppSelector(({OFFERS}) => OFFERS.currentCity);
+  const sortType = useAppSelector(({OFFERS}) => OFFERS.sortType);
+  const {isOfferLoaded} = useAppSelector(({ DATA }) => DATA);
+  const filteredOffers = filterCity(offers, currentCity);
+  const sortedOffers = sortOffers(filteredOffers, sortType);
+  const placesCount: number = filteredOffers.length;
+
   return (
     <>
       <Header />
-      {!isDataLoaded ? <Spinner /> :
+      {!isOfferLoaded ? <Spinner /> :
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
@@ -47,7 +52,7 @@ function Main(): JSX.Element {
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map">
-                  <Map city={currentCity} currentOffers={filteredOffers} selectedPoint={selectedPoint} key={currentCity.name} className='cities__map map' height={682}/>
+                  <Map city={currentCity} currentOffers={filteredOffers} selectedPoint={selectedPoint} key={currentCity.name} height={682}/>
                 </section>
               </div>
             </div>

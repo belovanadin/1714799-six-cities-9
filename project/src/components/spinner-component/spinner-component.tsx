@@ -1,22 +1,13 @@
-import styles from './spinner.module.css';
+import './spinner.css';
 
 function Spinner(): JSX.Element {
   return (
-    <div className={styles.container}>
-      <div className={styles.spinner}>
-        <div className={[styles.spinnerCircle, styles.spinnerCircleOuter].join(' ')}>
-        </div>
-        <div className={[styles.spinnerCircleOff, styles.spinnerCircleInner].join(' ')}>
-        </div>
-        <div className={[styles.spinnerCircle, styles.spinnerCircleSingle1].join(' ')}>
-        </div>
-        <div className={[styles.spinnerCircle, styles.spinnerCircleSingle2].join(' ')}>
-        </div>
-        <div className={styles.text}>
-          ...Грузимся...
-        </div>
+    <div className="loadingio-spinner-eclipse-ngn90lwswrf">
+      <div className="ldio-gd8w681dy99">
+        <div></div>
       </div>
-    </div>);
+    </div>
+  );
 }
 
 export default Spinner;

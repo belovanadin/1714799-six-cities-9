@@ -3,23 +3,15 @@ import {api} from '../store';
 import { store } from '../store';
 import { OfferType } from '../types/offer';
 import { ReviewType } from '../types/review';
-import { loadOffers, loadCurrentOffer, requireAutorization, setError, redirectToRoute, loadReviews, setOffersListAction, setNewReview } from './action';
-import { APIRoute, AppRoute, AutorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
-import { AuthData } from '../types/data';
+import { redirectToRoute } from './action';
+import { requireAuthorization } from './user-process/user-process';
+import {loadOffers, setNearbyOffers, loadReviews, loadCurrentOffer, setNewReview} from './offers-data/offers-data';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
+import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
-import { UserData } from '../types/data';
+import { UserData } from '../types/user-data';
 import { errorHandle } from '../services/error-handles';
 import { ReviewTypeData } from '../types/review';
-
-export const clearErrorAction = createAsyncThunk(
-  '/clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError('')),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
 
 export const fetchOfferAction = createAsyncThunk(
   'data/fetchOffers',
@@ -50,7 +42,7 @@ export const fetchNearbyOffersAction = createAsyncThunk(
   async (id: number) => {
     try {
       const {data} = await api.get<OfferType[]>(`${APIRoute.Offers}/${id}${APIRoute.Nearby}`);
-      store.dispatch(setOffersListAction(data));
+      store.dispatch(setNearbyOffers(data));
     } catch (error) {
       errorHandle(error);
     }
@@ -62,10 +54,10 @@ export const checkAuthAction = createAsyncThunk(
   async () => {
     try {
       await api.get(APIRoute.Login);
-      store.dispatch(requireAutorization(AutorizationStatus.Auth));
+      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch(error) {
       errorHandle(error);
-      store.dispatch(requireAutorization(AutorizationStatus.NoAuth));
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );
@@ -76,11 +68,11 @@ export const loginAction = createAsyncThunk(
     try {
       const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
       saveToken(token);
-      store.dispatch(requireAutorization(AutorizationStatus.Auth));
+      store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
       store.dispatch(redirectToRoute(AppRoute.Main));
     } catch (error) {
       errorHandle(error);
-      store.dispatch(requireAutorization(AutorizationStatus.NoAuth));
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }
   },
 );
@@ -91,7 +83,7 @@ export const logoutAction = createAsyncThunk(
     try {
       await api.delete(APIRoute.Logout);
       dropToken();
-      store.dispatch(requireAutorization(AutorizationStatus.NoAuth));
+      store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     } catch (error) {
       errorHandle(error);
     }

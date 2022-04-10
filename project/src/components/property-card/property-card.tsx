@@ -5,7 +5,8 @@ import ReviewForm from '../review-form/review-form';
 import PropertyGallery from '../property-gallery/property-gallery';
 import Map from '../map/map';
 import getPercRating from '../../utils';
-import { AutorizationStatus } from '../../const';
+import { AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../../hooks';
 
 type PropertyCardProps = {
   offers: OfferType[];
@@ -14,10 +15,11 @@ type PropertyCardProps = {
   reviews: ReviewType[];
 };
 
-function CardProperty({offers, selectedPoint, currentOffer, reviews}: PropertyCardProps):JSX.Element {
-
-  const isAuth = AutorizationStatus.Auth;
+function CardProperty({offers, selectedPoint, currentOffer, reviews }: PropertyCardProps):JSX.Element {
+  const authorizationStatus = useAppSelector(({ USER }) => USER.authorizationStatus);
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
   const { id: currentId } = currentOffer;
+
   return (
     <section className="property">
 
@@ -112,7 +114,7 @@ function CardProperty({offers, selectedPoint, currentOffer, reviews}: PropertyCa
         </div>
       </div>
       <section className="property__map map" style={{margin: '0 auto', width: '80%', background:'none'}}>
-        <Map city={currentOffer.city} currentOffers={offers} selectedPoint={selectedPoint} className={'property__map map'} height={500}/>
+        <Map city={currentOffer.city} currentOffers={[...offers, currentOffer]} selectedPoint={currentOffer} height={500}/>
       </section>
     </section>
   );

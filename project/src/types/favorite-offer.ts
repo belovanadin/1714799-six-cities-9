@@ -1,3 +1,4 @@
+import { Location } from './offer';
 export type FavoriteOfferType= {
   bedrooms: number;
   city: {

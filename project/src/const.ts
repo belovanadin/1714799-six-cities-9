@@ -5,7 +5,6 @@ export const ANCHOR_MARKER = 20;
 export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
 export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
 
-export const TIMEOUT_SHOW_ERROR = 2000;
 export const RATING_VALUES = [5, 4, 3, 2, 1];
 
 export enum RatingName {
@@ -25,7 +24,7 @@ export enum AppRoute {
   NotFound = '/*'
 }
 
-export enum AutorizationStatus {
+export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NOAUTH',
   Unknown = 'UNKNOWN',
@@ -141,4 +140,11 @@ export enum CardTypes {
   Main = 'cities',
   Favorites = 'favorites',
   Nearby = 'near-places',
+}
+
+export enum NameSpace {
+  data = 'DATA',
+  offers = 'OFFERS',
+  user = 'USER',
+  favorites = 'FAVORITES',
 }

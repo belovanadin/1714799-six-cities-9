@@ -1,43 +1,36 @@
 import { useState } from 'react';
-import { SortType } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { setSortPlaces } from '../../store/action';
+import { sortingType } from '../../utils';
+import PlacesSortOption from '../places-sort-option/places-sort-option';
 
 type PlacesSortProps = {
   sortType: string;
 }
 
-function PlacesSort({sortType}: PlacesSortProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  const [isOpenOptions, setIsOpenOptions] = useState(false);
+function PlacesSort({sortType}: PlacesSortProps):JSX.Element {
+
+  const [isOpenSortPopup, toggleOpenSortPopup] = useState(false);
 
   return (
-    <form className="places__sorting" action="#" method="get"
-      onClick={(evt) => {evt.preventDefault(); return setIsOpenOptions(!isOpenOptions);}}
-    >
-      <span className="places__sorting-caption">Sort by</span>
-
-      <span className="places__sorting-type">
+    <form className="places__sorting" action="#" method="get" onClick={() => toggleOpenSortPopup(!isOpenSortPopup)}>
+      <span className="places__sorting-caption">Sort by </span>
+      <span
+        className="places__sorting-type"
+        tabIndex={0}
+      >
         {sortType}
         <svg className="places__sorting-arrow" width="7" height="4">
-          <use xlinkHref="#icon-arrow-select"></use>
+          <use xlinkHref="#icon-arrow-select" />
         </svg>
       </span>
-      {
-        isOpenOptions &&
-        <ul className="places__options places__options--custom places__options--opened">
-          {Object.values(SortType).map((name, index) =>
-            (
-              <li className={`places__option ${(sortType === name)? 'places__option--active' : ' '}`}
-                tabIndex = {index}
-                key={name}
-                onClick={() => dispatch(setSortPlaces(name))}
-              >
-                {name}
-              </li>
-            ))}
-        </ul>
-      }
+      <ul className={`places__options places__options--custom ${isOpenSortPopup ? 'places__options--opened': ''}`}>
+        {sortingType.map((type) => (
+          <PlacesSortOption
+            activeOption={sortType}
+            key={type}
+            option={type}
+          />
+        ))}
+      </ul>
     </form>
   );
 }

@@ -1,14 +1,15 @@
-import {OfferType } from '../../types/offer';
-import Header from '../header/header';
-import PropertyCard from '../property-card/property-card';
-import PlaceCardList from '../place-card-list/place-card-list';
+import {OfferType } from '../types/offer';
+import Header from '../components/header/header';
+import PropertyCard from '../components/property-card/property-card';
+import PlaceCardList from '../components/place-card-list/place-card-list';
 import {useState, useEffect} from 'react';
-import { useAppSelector } from '../../hooks';
-import { CardTypes } from '../../const';
-import {store} from '../../store';
+import { useAppSelector } from '../hooks';
+import { CardTypes } from '../const';
+import {store} from '../store';
 import {useParams} from 'react-router-dom';
-import {loadCurrentOfferAction, fetchReviewsAction, fetchNearbyOffersAction} from '../../store/api-action';
-import NotFoundPage from '../../pages/not-found-page';
+import {loadCurrentOfferAction, fetchReviewsAction, fetchNearbyOffersAction} from '../store/api-action';
+import NotFoundPage from './not-found-page';
+import Spinner from '../components/spinner-component/spinner-component';
 
 function PlaceCardScreen(): JSX.Element {
 
@@ -17,17 +18,20 @@ function PlaceCardScreen(): JSX.Element {
   const onPlaceCardHover = (offer: OfferType | null) => {
     setSelectedPoint(offer);
   };
-  const {offers, filteredOffers, reviews} = useAppSelector((state) => state);
-
+  const { offers, currentOffer, reviews, isCurrentOfferLoaded } = useAppSelector(({DATA}) => DATA);
   const {id} = useParams<{id: string}>();
-
-  const currentOffer = filteredOffers.find((offer) => offer.id === Number(id));
 
   useEffect(() => {
     store.dispatch(loadCurrentOfferAction(Number(id)));
     store.dispatch(fetchReviewsAction(Number(id)));
     store.dispatch(fetchNearbyOffersAction(Number(id)));
   }, [id]);
+
+  if (isCurrentOfferLoaded === false) {
+    return (
+      <Spinner />
+    );
+  }
 
   if (!currentOffer) {
     return <NotFoundPage />;
@@ -38,7 +42,7 @@ function PlaceCardScreen(): JSX.Element {
       <Header />
       {currentOffer && (
         <>
-          <PropertyCard offers={filteredOffers} selectedPoint={selectedPoint} currentOffer={currentOffer} reviews={reviews} />
+          <PropertyCard offers={offers} selectedPoint={selectedPoint} currentOffer={currentOffer} reviews={reviews} />
           <main className="page__main page__main--property">
             <div className="container">
               <section className="near-places places">

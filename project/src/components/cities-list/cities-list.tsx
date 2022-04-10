@@ -3,7 +3,8 @@ import {citiesList} from '../../const';
 import { useAppSelector } from '../../hooks';
 
 function CitiesList(): JSX.Element {
-  const { currentCity } = useAppSelector((state) => state);
+  const { currentCity } = useAppSelector((state) => state.OFFERS);
+
 
   return (
     <ul className="locations__list tabs__list">
