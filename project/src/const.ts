@@ -1,6 +1,6 @@
 export enum URL_MARKERS {
-  CURRENT = '../public/img/pin-active.svg',
-  DEFAULT = '../public/img/pin.svg',
+  CURRENT = '../img/pin-active.svg',
+  DEFAULT = '../img/pin.svg',
 }
 
 export enum ICON {
