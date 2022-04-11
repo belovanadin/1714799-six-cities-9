@@ -1,4 +1,4 @@
-import FavoriteList from '../favorites-list/favorites-list';
+import FavoriteList from '../favorite-list/favorite-list';
 import FavoriteEmpty from '../favorite-empty/favorite-empty';
 import Header from '../header/header';
 import Footer from '../footer/footer';
