@@ -21,10 +21,7 @@ function FavoriteLocationCards({ locationOffers, city }: FavoriteLocationProps):
         </div>
       </div>
       <div className="favorites__places">
-        {locationOffers.map((offer) => {
-          const key = `${offer.id}`;
-          return <FavoritePlaceCard key={key} favoriteOffers={offer} />;
-        })}
+        {locationOffers.map((offer) => <FavoritePlaceCard key={offer.id} favoriteOffers={offer} />)}
       </div>
     </li>
   );
