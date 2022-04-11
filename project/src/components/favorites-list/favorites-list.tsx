@@ -1,31 +1,36 @@
-import FavoritePlaceCard from '../favorite-place-card/favorite-place-card';
-import { OfferType } from '../../types/offer';
-import {AppRoute} from '../../const';
-import { Link } from 'react-router-dom';
+import FavoriteLocationCards from '../favorite-location-cards/favorite-location-cards';
+import { FavoriteOfferType } from '../../types/favorite-offer';
 
 type FavoriteListProps = {
-  favoriteOffers: OfferType[];
+  favorites: FavoriteOfferType[];
 }
 
-function FavoriteList ({favoriteOffers}:FavoriteListProps): JSX.Element {
+const mapOffersToCity = (favoriteOffers: FavoriteOfferType[]) =>
+  favoriteOffers.reduce<{ [key: string]: FavoriteOfferType[] }>((favorites, offer) => {
+    if (!favorites[offer.city.name]) {
+      favorites[offer.city.name] = [];
+    }
+
+    favorites[offer.city.name].push(offer);
+    return favorites;
+  }, {});
+
+
+function FavoriteList ({favorites}:FavoriteListProps): JSX.Element {
+  const favoriteOffersByCities = mapOffersToCity(favorites);
   return (
-    <li className="favorites__locations-items">
-      <div className="favorites__locations locations locations--current">
-        <div className="locations__item">
-          <Link className="locations__item-link" to={AppRoute.Main}>
-            <span>{favoriteOffers[0]}</span>
-          </Link>
-        </div>
-      </div>
-      <div className="favorites__places">
-        {favoriteOffers.map((offer) => (
-          <FavoritePlaceCard
-            favoriteOffers={offer}
-            key={offer.id}
+    <section className="favorites">
+      <h1 className="favorites__title">Saved listing</h1>
+      <ul className="favorites__list">
+        {Object.keys(favoriteOffersByCities).map((city) => (
+          <FavoriteLocationCards
+            key={city}
+            city={city}
+            locationOffers={favoriteOffersByCities[city]}
           />
         ))}
-      </div>
-    </li>
+      </ul>
+    </section>
   );
 }
 

@@ -1,11 +1,17 @@
-export const WIDTH_MARKER = 40;
-export const HEIGHT_MARKER = 40;
-export const ANCHOR_MARKER = 20;
+export enum URL_MARKERS {
+  CURRENT = '../img/pin-active.svg',
+  DEFAULT = '../img/pin.svg',
+}
 
-export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
-export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
+export enum ICON {
+  WIDTH = 40,
+  HEIGHT = 50,
+}
+export enum ANCHOR_POSITION {
+  RELATIVE_X = 20,
+  RELATIVE_Y = 40,
+}
 
-export const TIMEOUT_SHOW_ERROR = 2000;
 export const RATING_VALUES = [5, 4, 3, 2, 1];
 
 export enum RatingName {
@@ -22,10 +28,10 @@ export enum AppRoute {
   Favorites = '/favorites',
   Room = '/offer/:id',
   Offer = '/offer',
-  NotFound = '/*'
+  NotFound = '/404'
 }
 
-export enum AutorizationStatus {
+export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NOAUTH',
   Unknown = 'UNKNOWN',
@@ -115,11 +121,6 @@ export enum HttpCode {
   NOT_FOUND = 404,
 }
 
-export enum LogoTypes {
-  Header = 'header',
-  Footer = 'footer',
-}
-
 export const MONTHS_NAMES = [
   'January',
   'February',
@@ -141,4 +142,10 @@ export enum CardTypes {
   Main = 'cities',
   Favorites = 'favorites',
   Nearby = 'near-places',
+}
+
+export enum NameSpace {
+  Data = 'DATA',
+  Offers = 'OFFERS',
+  User = 'USER',
 }

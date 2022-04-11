@@ -1,16 +1,19 @@
-import { LogoTypes } from '../../const';
 import Logo from '../logo/logo';
 import HeaderNav from '../header-nav/header-nav';
 
-function Header(): JSX.Element {
+type HeaderProps = {
+  isThisPageLogin?: boolean;
+}
+
+function Header({isThisPageLogin}:HeaderProps): JSX.Element {
   return (
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Logo type={LogoTypes.Header} />
+            <Logo />
           </div>
-          <HeaderNav />
+          {!isThisPageLogin && <HeaderNav /> }
         </div>
       </div>
     </header>

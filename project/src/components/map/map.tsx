@@ -4,7 +4,7 @@ import {Icon, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../hooks/use-map';
 import { useEffect, useRef } from 'react';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT, WIDTH_MARKER, HEIGHT_MARKER, ANCHOR_MARKER } from '../../const';
+import { URL_MARKERS, ICON, ANCHOR_POSITION } from '../../const';
 
 type MapProps = {
   city: City;
@@ -14,20 +14,20 @@ type MapProps = {
   className: string;
 }
 const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [WIDTH_MARKER, HEIGHT_MARKER],
-  iconAnchor: [ANCHOR_MARKER, HEIGHT_MARKER],
+  iconUrl: URL_MARKERS.DEFAULT,
+  iconSize: [ICON.WIDTH, ICON.HEIGHT],
+  iconAnchor: [ANCHOR_POSITION.RELATIVE_X, ANCHOR_POSITION.RELATIVE_Y],
 });
 
 const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [WIDTH_MARKER, HEIGHT_MARKER],
-  iconAnchor: [ANCHOR_MARKER, HEIGHT_MARKER],
+  iconUrl: URL_MARKERS.CURRENT,
+  iconSize: [ICON.WIDTH, ICON.HEIGHT],
+  iconAnchor: [ANCHOR_POSITION.RELATIVE_X, ANCHOR_POSITION.RELATIVE_Y],
 });
 
 const markers:Marker[]= [];
 
-function Map({ currentOffers, city, selectedPoint, className, height}: MapProps) {
+function Map({ currentOffers, city, selectedPoint, height, className}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -45,16 +45,25 @@ function Map({ currentOffers, city, selectedPoint, className, height}: MapProps)
               : defaultCustomIcon,
           )
           .addTo(map);
+        markers.push(marker);
       });
     }
     return () => {
-      markers.forEach((marker) => marker.remove());
-      markers.length = 0;
+      markers.forEach((marker) => {
+        if (map) {
+          marker.removeFrom(map);
+        }
+      });
     };
-  });
+  }, [map, currentOffers, selectedPoint, city]);
 
   return(
-    <section className="cities__map map" ref={mapRef} />
+    <section
+      className={className}
+      ref={mapRef}
+      style = {{height:`${height}px`}}
+    >
+    </section>
   );
 }
 

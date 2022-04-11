@@ -1,16 +1,34 @@
-import {Link} from 'react-router-dom';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { useAppDispatch } from '../hooks';
+import {Link, Navigate} from 'react-router-dom';
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks';
 import { loginAction } from '../store/api-action';
-import { AppRoute } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
+import { getRandomCity } from '../utils';
+import { setCity } from '../store/offers-process/offers-process';
+import { getUserEmail } from '../services/user-email';
+import {getAuthorizationStatus} from '../store/user-process/selectors';
+import { getCurrentCity } from '../store/offers-process/selectors';
 
 
 function SignInScreen(): JSX.Element {
+
+  const currentCity = useAppSelector(getCurrentCity);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  const [randomCity, setRandomCity] = useState(currentCity);
+  useEffect(() => {
+    const city = getRandomCity();
+    setRandomCity(city);
+  }, []);
 
   const dispatch = useAppDispatch();
 
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+
+  if (authorizationStatus === AuthorizationStatus.Auth) {
+    return <Navigate to={AppRoute.Main} />;
+  }
 
   const loginChangeHandler = (evt: ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault();
@@ -33,6 +51,7 @@ function SignInScreen(): JSX.Element {
           password: password,
         }),
       );
+      getUserEmail();
     }
   };
 
@@ -69,6 +88,7 @@ function SignInScreen(): JSX.Element {
                 required
                 value={password}
                 onChange={passwordChangeHandler}
+                pattern="(?!^[0-9]*$)(?!^[A-Za-zА-Яа-яЁё]*$)^([A-Za-zА-Яа-яЁё0-9]{6,50})$"
               />
             </div>
             <button className="login__submit form__submit button" type="submit">Sign in</button>
@@ -76,8 +96,10 @@ function SignInScreen(): JSX.Element {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link to={AppRoute.Main} className="locations__item-link" >
-              <span>Amsterdam</span>
+            <Link to={AppRoute.Main} className="locations__item-link"
+              onClick={() => dispatch(setCity(randomCity))}
+            >
+              <span>{randomCity.name}</span>
             </Link>
           </div>
         </section>
