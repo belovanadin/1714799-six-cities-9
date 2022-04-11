@@ -1,15 +1,25 @@
 import {Link, Navigate} from 'react-router-dom';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { loginAction } from '../store/api-action';
 import { AppRoute, AuthorizationStatus } from '../const';
-import { getUserLogin } from '../store/user-process/user-process';
+import { getRandomCity } from '../utils';
+import { setCity } from '../store/offers-process/offers-process';
+import { getUserEmail } from '../services/user-email';
+import {getAuthorizationStatus} from '../store/user-process/selectors';
+import { getCurrentCity } from '../store/offers-process/selectors';
 
 
 function SignInScreen(): JSX.Element {
 
-  const {authorizationStatus} = useAppSelector(({USER}) => USER);
-  const {currentCity} = useAppSelector(({OFFERS}) => OFFERS);
+  const currentCity = useAppSelector(getCurrentCity);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  const [randomCity, setRandomCity] = useState(currentCity);
+  useEffect(() => {
+    const city = getRandomCity();
+    setRandomCity(city);
+  }, []);
 
   const dispatch = useAppDispatch();
 
@@ -41,7 +51,7 @@ function SignInScreen(): JSX.Element {
           password: password,
         }),
       );
-      dispatch(getUserLogin(login));
+      getUserEmail();
     }
   };
 
@@ -86,8 +96,10 @@ function SignInScreen(): JSX.Element {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <Link to={AppRoute.Main} className="locations__item-link" >
-              <span>{currentCity.name}</span>
+            <Link to={AppRoute.Main} className="locations__item-link"
+              onClick={() => dispatch(setCity(randomCity))}
+            >
+              <span>{randomCity.name}</span>
             </Link>
           </div>
         </section>

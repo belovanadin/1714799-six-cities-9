@@ -11,33 +11,33 @@ import BookmarkButton from '../bookmark-button/bookmark-button';
 import {useState} from 'react';
 import { toggleFavoriteAction } from '../../store/api-action';
 import { redirectToRoute } from '../../store/action';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 type PropertyCardProps = {
   offers: OfferType[];
-  selectedPoint: OfferType | null;
   currentOffer: OfferType;
   reviews: ReviewType[];
 };
 
-function CardProperty({offers, selectedPoint, currentOffer, reviews }: PropertyCardProps):JSX.Element {
-  const authorizationStatus = useAppSelector(({ USER }) => USER.authorizationStatus);
+function PropertyCard({offers, currentOffer, reviews }: PropertyCardProps):JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const [isOfferFavorite, setToggleFavorite] = useState(currentOffer.isFavorite);
   const dispatch = useAppDispatch();
   const postFavoriteFlag = currentOffer.isFavorite ? 0 : 1;
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+  const { id: currentId } = currentOffer;
 
   const handleFavoriteClick = () => {
-    if (authorizationStatus !== AuthorizationStatus.Auth) {
+    if (!isAuth) {
       dispatch(redirectToRoute(AppRoute.SignIn));
     }
     dispatch(toggleFavoriteAction({
-      id: currentOffer.id,
+      id: currentId,
       flag: postFavoriteFlag,
     }));
 
     setToggleFavorite(!isOfferFavorite);
   };
-  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
-  const { id: currentId } = currentOffer;
 
   return (
     <section className="property">
@@ -128,11 +128,11 @@ function CardProperty({offers, selectedPoint, currentOffer, reviews }: PropertyC
           </section>
         </div>
       </div>
-      <section className="property__map map" style={{margin: '0 auto', width: '80%', background:'none'}}>
-        <Map city={currentOffer.city} currentOffers={[...offers, currentOffer]} selectedPoint={currentOffer} height={500}/>
-      </section>
+      <div style = {{ width:'80%', margin:'0 auto', marginBottom:'50px'}}>
+        <Map city={currentOffer.city} currentOffers={[...offers, currentOffer]} selectedPoint={currentOffer} className={'property__map map'} height={500}/>
+      </div>
     </section>
   );
 }
 
-export default CardProperty;
+export default PropertyCard;

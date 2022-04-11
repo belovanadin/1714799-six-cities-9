@@ -1,18 +1,18 @@
-import FavoritesLocationCards from '../favorite-location-card/favorite-location-card';
+import FavoriteLocationCards from '../favorite-location-cards/favorite-location-cards';
 import { FavoriteOfferType } from '../../types/favorite-offer';
 
 type FavoriteListProps = {
   favorites: FavoriteOfferType[];
 }
 
-const mapOffersToCity = (arr: FavoriteOfferType[]) =>
-  arr.reduce<{ [key: string]: FavoriteOfferType[] }>((acc, offer) => {
-    if (!acc[offer.city.name]) {
-      acc[offer.city.name] = [];
+const mapOffersToCity = (favoriteOffers: FavoriteOfferType[]) =>
+  favoriteOffers.reduce<{ [key: string]: FavoriteOfferType[] }>((favorites, offer) => {
+    if (!favorites[offer.city.name]) {
+      favorites[offer.city.name] = [];
     }
 
-    acc[offer.city.name].push(offer);
-    return acc;
+    favorites[offer.city.name].push(offer);
+    return favorites;
   }, {});
 
 
@@ -23,7 +23,7 @@ function FavoriteList ({favorites}:FavoriteListProps): JSX.Element {
       <h1 className="favorites__title">Saved listing</h1>
       <ul className="favorites__list">
         {Object.keys(favoriteOffersByCities).map((city) => (
-          <FavoritesLocationCards
+          <FavoriteLocationCards
             key={city}
             city={city}
             locationOffers={favoriteOffersByCities[city]}

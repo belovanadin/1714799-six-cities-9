@@ -2,13 +2,15 @@ import { Link } from 'react-router-dom';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-action';
+import { getUserEmail } from '../../services/user-email';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function HeaderNav(): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
-  const userLogin = useAppSelector(({USER}) => USER.user);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+  const email = getUserEmail();
 
   return (
     <nav className="header__nav">
@@ -19,7 +21,7 @@ function HeaderNav(): JSX.Element {
             <li className="header__nav-item user">
               <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                 <div className="header__avatar-wrapper user__avatar-wrapper" />
-                <span className="header__user-name user__name">{userLogin}</span>
+                <span className="header__user-name user__name">{email}</span>
               </Link>
             </li>
             <li className="header__nav-item">

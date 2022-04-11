@@ -12,7 +12,7 @@ type InitialStateType = {
   isOfferLoaded: boolean;
   isCurrentOfferLoaded: boolean;
   favorites: FavoriteOfferType[];
-  favoritesLoaded: boolean;
+  isFavoritesLoaded: boolean;
 }
 
 const initialState: InitialStateType = {
@@ -23,11 +23,11 @@ const initialState: InitialStateType = {
   isDataLoaded: false,
   isCurrentOfferLoaded: false,
   favorites: [],
-  favoritesLoaded: false,
+  isFavoritesLoaded: false,
 };
 
 export const offersData = createSlice({
-  name: NameSpace.data,
+  name: NameSpace.Data,
   initialState,
   reducers: {
     loadOffers: (state, action) => {
@@ -50,7 +50,7 @@ export const offersData = createSlice({
     },
     fetchFavorites: (state, action) => {
       state.favorites = action.payload;
-      state.favoritesLoaded = true;
+      state.isFavoritesLoaded = true;
     },
   },
 });

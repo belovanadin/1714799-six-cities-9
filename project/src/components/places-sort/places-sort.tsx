@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { sortingType } from '../../utils';
+import { typeOfSort } from '../../utils';
 import PlacesSortOption from '../places-sort-option/places-sort-option';
 
 type PlacesSortProps = {
@@ -23,7 +23,7 @@ function PlacesSort({sortType}: PlacesSortProps):JSX.Element {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isOpenSortPopup ? 'places__options--opened': ''}`}>
-        {sortingType.map((type) => (
+        {typeOfSort.map((type) => (
           <PlacesSortOption
             activeOption={sortType}
             key={type}

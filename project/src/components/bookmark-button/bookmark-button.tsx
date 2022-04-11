@@ -1,11 +1,14 @@
 import { MouseEvent } from 'react';
+import { useAppSelector } from '../../hooks';
+import { AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 const ButtonSize = {
-  small: {
+  SMALL: {
     width: '18',
     heigth: '19',
   },
-  big: {
+  BIG: {
     width: '31',
     heigth: '33',
   },
@@ -19,17 +22,19 @@ type BookmarkButtonProps = {
 }
 
 function BookmarkButton({ handleBookmarkButtonClick, isFavorite, isSmall, prefix }: BookmarkButtonProps): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
   return (
     <button
-      className={`${prefix}__bookmark-button ${isFavorite ?  `${prefix  }__bookmark-button--active` : ''} button`}
+      className={`${prefix}__bookmark-button ${isFavorite && isAuth ?  `${prefix  }__bookmark-button--active` : ''} button`}
       type="button"
       onClick={handleBookmarkButtonClick}
     >
       <svg
-        className="place-card__bookmark-icon"
-        width={isSmall ? ButtonSize.small.width : ButtonSize.small.heigth}
-        height={isSmall ? ButtonSize.big.width : ButtonSize.big.heigth}
+        className={`${prefix}__bookmark-icon`}
+        width={isSmall ? ButtonSize.SMALL.width : ButtonSize.SMALL.heigth}
+        height={isSmall ? ButtonSize.BIG.width : ButtonSize.BIG.heigth}
       >
         <use xlinkHref="#icon-bookmark"></use>
       </svg>

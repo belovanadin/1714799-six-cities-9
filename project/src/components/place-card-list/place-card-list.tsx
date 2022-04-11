@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { OfferType } from '../../types/offer';
 import PlaceCard from '../place-card/place-card';
 import {useState} from 'react';
@@ -6,9 +5,10 @@ import {useState} from 'react';
 type PlaceCardListProps = {
   offers: OfferType[];
   onPlaceCardHover?: (offer: OfferType | null) => void;
+  className: string;
 }
 
-function PlaceCardList({offers, onPlaceCardHover}: PlaceCardListProps): JSX.Element {
+function PlaceCardList({offers, onPlaceCardHover, className}: PlaceCardListProps): JSX.Element {
 
   const [, setActiveOffer]=useState<null | OfferType>(null);
 
@@ -16,7 +16,7 @@ function PlaceCardList({offers, onPlaceCardHover}: PlaceCardListProps): JSX.Elem
     setActiveOffer(offer);
   };
   return (
-    <Fragment>
+    <div className={className}>
       {offers.map((offer, id) => (
         <PlaceCard
           key={offer.id}
@@ -24,7 +24,7 @@ function PlaceCardList({offers, onPlaceCardHover}: PlaceCardListProps): JSX.Elem
           onActiveOfferChange={onActiveOfferChange}
         />
       ))}
-    </Fragment>
+    </div>
   );
 }
 

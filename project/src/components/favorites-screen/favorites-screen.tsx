@@ -5,14 +5,16 @@ import Footer from '../footer/footer';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { loadFavoriteAction } from '../../store/api-action';
 import { useEffect } from 'react';
+import { store } from '../../store';
+import { getFavoriteOffers } from '../../store/offers-data/selectors';
 
 
 function FavoritesScreen(): JSX.Element {
-  const {favorites} = useAppSelector(({DATA}) => DATA);
+  const favorites = useAppSelector(getFavoriteOffers);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(loadFavoriteAction());
+    store.dispatch(loadFavoriteAction());
   }, [dispatch]);
   return (
     <>

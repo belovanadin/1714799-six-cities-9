@@ -1,9 +1,16 @@
-export const WIDTH_MARKER = 40;
-export const HEIGHT_MARKER = 40;
-export const ANCHOR_MARKER = 20;
+export enum URL_MARKERS {
+  CURRENT = '../public/img/pin-active.svg',
+  DEFAULT = '../public/img/pin.svg',
+}
 
-export const URL_MARKER_DEFAULT = '../public/img/pin.svg';
-export const URL_MARKER_CURRENT = '../public/img/pin-active.svg';
+export enum ICON {
+  WIDTH = 40,
+  HEIGHT = 50,
+}
+export enum ANCHOR_POSITION {
+  RELATIVE_X = 20,
+  RELATIVE_Y = 40,
+}
 
 export const RATING_VALUES = [5, 4, 3, 2, 1];
 
@@ -138,8 +145,7 @@ export enum CardTypes {
 }
 
 export enum NameSpace {
-  data = 'DATA',
-  offers = 'OFFERS',
-  user = 'USER',
-  favorites = 'FAVORITES',
+  Data = 'DATA',
+  Offers = 'OFFERS',
+  User = 'USER',
 }

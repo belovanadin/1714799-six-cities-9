@@ -7,6 +7,7 @@ import getPercRating from '../../utils';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useState } from 'react';
 import { redirectToRoute } from '../../store/action';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 type PlaceCardProps = {
   offer: OfferType;
@@ -16,7 +17,7 @@ type PlaceCardProps = {
 function PlaceCard({offer, onActiveOfferChange}: PlaceCardProps): JSX.Element {
   const {price, title, previewImage, type, rating, isPremium, id} = offer;
 
-  const authorizationStatus = useAppSelector(({ USER }) => USER.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const [isOfferFavorite, setToggleFavorite] = useState(offer.isFavorite);
   const dispatch = useAppDispatch();
   const postFavoriteFlag = offer.isFavorite ? 0 : 1;
